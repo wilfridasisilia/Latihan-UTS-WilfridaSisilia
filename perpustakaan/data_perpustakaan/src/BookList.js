@@ -52,13 +52,17 @@ const BooksList = () => {
 
     // Fungsi untuk menghapus buku
     const handleDeleteBook = (id) => {
-        axios.delete(`http://localhost:8000/api/books/${id}`)
-            .then((response) => {
-                fetchBooks(); // Refresh data setelah menghapus buku
-            })
-            .catch((error) => {
-                console.error('Error menghapus buku:', error);
-            });
+        const confirmDelete = window.confirm('Apakah kamu yakin ingin menghapus buku ini?');
+        if (confirmDelete) {
+            axios.delete(`http://localhost:8000/api/books/${id}`)
+                .then((response) => {
+                    fetchBooks(); // Refresh data setelah menghapus buku
+                    alert('Buku berhasil dihapus!');
+                })
+                .catch((error) => {
+                    console.error('Error menghapus buku:', error);
+                });
+        }
     };
 
     // Jika masih loading
